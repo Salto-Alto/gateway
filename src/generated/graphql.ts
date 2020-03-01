@@ -20,11 +20,17 @@ export type Query = {
    __typename?: 'Query',
   launches: Array<Maybe<Launch>>,
   launch?: Maybe<Launch>,
+  allUsers: Array<Maybe<User>>,
 };
 
 
 export type QueryLaunchArgs = {
   id: Scalars['ID']
+};
+
+export type User = {
+   __typename?: 'User',
+  name: Scalars['String'],
 };
 
 
@@ -104,6 +110,7 @@ export type ResolversTypes = {
   Launch: ResolverTypeWrapper<Launch>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
   String: ResolverTypeWrapper<Scalars['String']>,
+  User: ResolverTypeWrapper<User>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
 };
 
@@ -113,6 +120,7 @@ export type ResolversParentTypes = {
   Launch: Launch,
   ID: Scalars['ID'],
   String: Scalars['String'],
+  User: User,
   Boolean: Scalars['Boolean'],
 };
 
@@ -125,11 +133,18 @@ export type LaunchResolvers<ContextType = any, ParentType extends ResolversParen
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   launches?: Resolver<Array<Maybe<ResolversTypes['Launch']>>, ParentType, ContextType>,
   launch?: Resolver<Maybe<ResolversTypes['Launch']>, ParentType, ContextType, RequireFields<QueryLaunchArgs, 'id'>>,
+  allUsers?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType>,
+};
+
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
 export type Resolvers<ContextType = any> = {
   Launch?: LaunchResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
+  User?: UserResolvers<ContextType>,
 };
 
 

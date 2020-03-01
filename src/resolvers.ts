@@ -1,4 +1,4 @@
-import { Launch, QueryResolvers } from './generated/graphql';
+import { Launch, QueryResolvers, User } from './generated/graphql';
 
 interface Resolvers {
     Query: QueryResolvers;
@@ -11,6 +11,9 @@ const resolvers: Resolvers = {
         },
         launch: (_, { id }, { dataSources }): Promise<Launch> => {
             return dataSources.launchAPI.getLaunchById(id);
+        },
+        allUsers: (_, __, { dataSources }): Promise<Array<User>> => {
+            return dataSources.userAPI.getAllUsers();
         },
     },
 };

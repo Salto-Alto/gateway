@@ -29,8 +29,11 @@
   "dependencies": {
     "apollo-datasource-rest": "^0.7.0",
     "apollo-server-express": "^2.10.1",
+    "datasource-sql": "^1.1.1",
     "express": "^4.17.1",
     "graphql": "^14.6.0",
-    "graphql-tag": "^2.10.3"
+    "graphql-tag": "^2.10.3",
+    "knex": "^0.20.10",
+    "sqlite3": "^4.1.1"
   }
 }

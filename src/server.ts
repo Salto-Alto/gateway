@@ -3,6 +3,14 @@ import { ApolloServer } from 'apollo-server-express';
 import { typeDefs } from './schema';
 import LaunchAPI from './datasources/launch';
 import resolvers from './resolvers';
+import UserAPI from './datasources/user';
+
+const knexConfig = {
+    client: 'sqlite3',
+    connection: {
+        filename: './dev.sqlite3',
+    },
+};
 
 const server = new ApolloServer({
     typeDefs,
@@ -11,6 +19,7 @@ const server = new ApolloServer({
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     dataSources: () => ({
         launchAPI: new LaunchAPI(),
+        userAPI: new UserAPI(knexConfig),
     }),
 });
 
