@@ -4,13 +4,7 @@ import { typeDefs } from './schema';
 import LaunchAPI from './datasources/launch';
 import resolvers from './resolvers';
 import UserAPI from './datasources/user';
-
-const knexConfig = {
-    client: 'sqlite3',
-    connection: {
-        filename: './dev.sqlite3',
-    },
-};
+import knexConfig from '../knex/config';
 
 const server = new ApolloServer({
     typeDefs,

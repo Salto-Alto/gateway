@@ -6,6 +6,10 @@ module.exports = {
         connection: {
             filename: './dev.sqlite3',
         },
+        useNullAsDefault: true,
+        migrations: {
+            directory: __dirname + '/knex/migrations',
+        },
     },
 
     staging: {
