@@ -1,8 +1,10 @@
-import { Context } from './datasources';
-import { IResolvers } from 'apollo-server-express';
-import { Launch } from './generated/graphql';
+import { Launch, QueryResolvers } from './generated/graphql';
 
-const resolvers: IResolvers<Context> = {
+interface Resolvers {
+    Query: QueryResolvers;
+}
+
+const resolvers: Resolvers = {
     Query: {
         launches: (_, __, { dataSources }): Promise<Array<Launch>> => {
             return dataSources.launchAPI.getAllLaunches();

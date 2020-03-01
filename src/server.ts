@@ -6,7 +6,8 @@ import resolvers from './resolvers';
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolvers: resolvers as any,
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     dataSources: () => ({
         launchAPI: new LaunchAPI(),
