@@ -1,16 +1,22 @@
-import { ApolloServer } from "apollo-server";
+import express from "express";
+import { ApolloServer } from "apollo-server-express";
 import typeDefs from "./schema";
 import LaunchAPI from "./datasources/launch";
 import resolvers from "./resolvers";
 
 const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    dataSources: () => ({
-        launchAPI: new LaunchAPI(),
-    })
+  typeDefs,
+  resolvers,
+  dataSources: () => ({
+    launchAPI: new LaunchAPI(),
+  })
 })
 
-server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
+const app = express();
+server.applyMiddleware({ app });
+
+const port = 3000;
+
+app.listen({ port }, () => {
+  console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`);
+})
