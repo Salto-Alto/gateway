@@ -1,5 +1,7 @@
-import LaunchAPI from "./launch"
+import LaunchAPI from './launch';
 
-export default interface IDataSources {
-    launchAPI: LaunchAPI
+export type Context = {};
+
+export default interface DataSources {
+    launchAPI: LaunchAPI;
 }

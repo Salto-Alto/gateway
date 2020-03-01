@@ -1,12 +1,13 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import typeDefs from './schema';
+import { typeDefs } from './schema';
 import LaunchAPI from './datasources/launch';
 import resolvers from './resolvers';
 
 const server = new ApolloServer({
     typeDefs,
     resolvers,
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     dataSources: () => ({
         launchAPI: new LaunchAPI(),
     }),

@@ -1,13 +1,16 @@
-import LaunchAPI from "./datasources/launch";
-import IDataSources from "./datasources";
+import { Context } from './datasources';
+import { IResolvers } from 'apollo-server-express';
+import { Launch } from './generated/graphql';
 
-export default {
+const resolvers: IResolvers<Context> = {
     Query: {
-        launches: (_: any, __: any, { dataSources }: { dataSources: IDataSources }) => {
+        launches: (_, __, { dataSources }): Promise<Array<Launch>> => {
             return dataSources.launchAPI.getAllLaunches();
         },
-        launch: (_: any, { id }: { id: number }, { dataSources }: { dataSources: IDataSources }) => {
+        launch: (_, { id }, { dataSources }): Promise<Launch> => {
             return dataSources.launchAPI.getLaunchById(id);
-        }
-    }
-}
+        },
+    },
+};
+
+export default resolvers;
