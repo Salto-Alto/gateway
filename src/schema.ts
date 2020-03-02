@@ -1,19 +1,22 @@
 import { gql } from 'apollo-server-express';
 
 export const typeDefs = gql`
-    type Launch {
-        id: ID!
-        site: String
-    }
-
     type User {
+        id: ID!
         name: String!
     }
 
     type Query {
-        launches: [Launch]!
-        launch(id: ID!): Launch
+        users: [User]!
+        userById(id: ID!): User
+    }
 
-        allUsers: [User]!
+    type Mutation {
+        createUser(name: String!): UserCreationResult!
+    }
+
+    type UserCreationResult {
+        success: Boolean!
+        message: String
     }
 `;

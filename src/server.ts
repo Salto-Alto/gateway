@@ -1,7 +1,6 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { typeDefs } from './schema';
-import LaunchAPI from './datasources/launch';
 import resolvers from './resolvers';
 import UserAPI from './datasources/user';
 import knexConfig from '../knex/config';
@@ -12,7 +11,6 @@ const server = new ApolloServer({
     resolvers: resolvers as any,
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     dataSources: () => ({
-        launchAPI: new LaunchAPI(),
         userAPI: new UserAPI(knexConfig),
     }),
 });

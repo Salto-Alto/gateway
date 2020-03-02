@@ -10,27 +10,37 @@ export type Scalars = {
   Float: number,
 };
 
-export type Launch = {
-   __typename?: 'Launch',
-  id: Scalars['ID'],
-  site?: Maybe<Scalars['String']>,
+export type Mutation = {
+   __typename?: 'Mutation',
+  createUser: UserCreationResult,
+};
+
+
+export type MutationCreateUserArgs = {
+  name: Scalars['String']
 };
 
 export type Query = {
    __typename?: 'Query',
-  launches: Array<Maybe<Launch>>,
-  launch?: Maybe<Launch>,
-  allUsers: Array<Maybe<User>>,
+  users: Array<Maybe<User>>,
+  userById?: Maybe<User>,
 };
 
 
-export type QueryLaunchArgs = {
+export type QueryUserByIdArgs = {
   id: Scalars['ID']
 };
 
 export type User = {
    __typename?: 'User',
+  id: Scalars['ID'],
   name: Scalars['String'],
+};
+
+export type UserCreationResult = {
+   __typename?: 'UserCreationResult',
+  success: Scalars['Boolean'],
+  message?: Maybe<Scalars['String']>,
 };
 
 
@@ -107,44 +117,51 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
-  Launch: ResolverTypeWrapper<Launch>,
+  User: ResolverTypeWrapper<User>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
   String: ResolverTypeWrapper<Scalars['String']>,
-  User: ResolverTypeWrapper<User>,
+  Mutation: ResolverTypeWrapper<{}>,
+  UserCreationResult: ResolverTypeWrapper<UserCreationResult>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {},
-  Launch: Launch,
+  User: User,
   ID: Scalars['ID'],
   String: Scalars['String'],
-  User: User,
+  Mutation: {},
+  UserCreationResult: UserCreationResult,
   Boolean: Scalars['Boolean'],
 };
 
-export type LaunchResolvers<ContextType = any, ParentType extends ResolversParentTypes['Launch'] = ResolversParentTypes['Launch']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  site?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createUser?: Resolver<ResolversTypes['UserCreationResult'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'name'>>,
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  launches?: Resolver<Array<Maybe<ResolversTypes['Launch']>>, ParentType, ContextType>,
-  launch?: Resolver<Maybe<ResolversTypes['Launch']>, ParentType, ContextType, RequireFields<QueryLaunchArgs, 'id'>>,
-  allUsers?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType>,
+  users?: Resolver<Array<Maybe<ResolversTypes['User']>>, ParentType, ContextType>,
+  userById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByIdArgs, 'id'>>,
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type UserCreationResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserCreationResult'] = ResolversParentTypes['UserCreationResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type Resolvers<ContextType = any> = {
-  Launch?: LaunchResolvers<ContextType>,
+  Mutation?: MutationResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   User?: UserResolvers<ContextType>,
+  UserCreationResult?: UserCreationResultResolvers<ContextType>,
 };
 
 
