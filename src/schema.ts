@@ -10,11 +10,18 @@ export const typeDefs = gql`
     type Query {
         users: [User]!
         userById(id: ID!): User
+
+        testAuth: String!
     }
 
     type Mutation {
-        loginUser(email: String!, password: String!): User
+        loginUser(email: String!, password: String!): UserLogin # null if login failed
         createUser(name: String!, email: String!, password: String!): UserCreationResult!
+    }
+
+    type UserLogin {
+        user: User!
+        token: String!
     }
 
     type UserCreationResult {
