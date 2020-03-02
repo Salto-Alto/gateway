@@ -1,0 +1,31 @@
+version: '3.0'
+
+services:
+    gateway:
+        build: .
+        image: gateway:latest
+        depends_on:
+            - db
+        ports:
+            - 3000:3000
+
+    db:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_USER: dev_admin_user
+            POSTGRES_PASSWORD: dev_passwd
+            POSTGRES_DB: dev_db
+        ports:
+            - 5432:5432
+
+    migration:
+        image: gateway:latest
+        environment:
+            POSTGRES_USER: dev_admin_user
+            POSTGRES_PASSWORD: dev_passwd
+            POSTGRES_DB: dev_db
+        command: ['sh', './wait_for_postgres.sh', 'db', 'yarn', 'knex', 'migrate:latest']
+        depends_on:
+            - db
+            - gateway
