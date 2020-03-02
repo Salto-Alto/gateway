@@ -15,12 +15,15 @@ const resolvers: Resolvers = {
         },
     },
     Mutation: {
-        createUser: async (_, { name }, { dataSources }): Promise<UserCreationResult> => {
-            if (await dataSources.userAPI.createUser(name)) {
+        createUser: async (_, { name, email, password }, { dataSources }): Promise<UserCreationResult> => {
+            if (await dataSources.userAPI.createUser(name, email, password)) {
                 return { success: true };
             } else {
                 return { success: false, message: 'Error creation failed' };
             }
+        },
+        loginUser: (_, { email, password }, { dataSources }): Promise<User | null> => {
+            return dataSources.userAPI.loginUser(email, password);
         },
     },
 };
